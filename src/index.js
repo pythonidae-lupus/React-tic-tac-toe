@@ -50,15 +50,25 @@ class Board extends React.Component {
 
 class Game extends React.Component {
 
-
   constructor(props) {
     super(props);
     this.state = {
       history: [{squares : Array(9).fill(null),}],
       stepNumber: 0,
       xIsNext: true,
+      squareNumVar: null,
     };
   }
+
+  squareNum(val) {
+	console.log(val);
+	this.setState({
+		squareNumVar : val,
+	});
+	
+}
+
+
 
    handleClick(i) {
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
@@ -73,7 +83,10 @@ class Game extends React.Component {
         squares: squares,      }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,});
+    
+    this.squareNum(i);
   }
+
 
 
   jumpTo(step) {    
@@ -84,13 +97,15 @@ class Game extends React.Component {
   }
 
   render() {
+
     const history = this.state.history;    
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
+    const squareNumVar = this.state.squareNumVar;
 
         const moves = history.map((step, move) => {      
           const desc = move ?        
-          'Go to move #' + move :        
+          'Go to move #' + move + " " + squareNumVar.toString():        
           'Go to game start';      
           return (        
           <li key={move}>          
