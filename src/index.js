@@ -57,8 +57,8 @@ class Game extends React.Component {
       stepNumber: 0,
       xIsNext: true,
       squareNumVar: Array(9).fill(null),
-      col: 0,
-      row: 0,
+      col: [],
+      row: [],
     };
   }
 
@@ -67,27 +67,37 @@ class Game extends React.Component {
 	
 	if ( val === 0 || val === 3 || val === 6) {
 		this.setState({
-			col : 1,
+			col : this.state.col.concat(1),
 		});
 		
 	}
 	else if (val === 1 || val === 4 || val === 7) {
-		this.setState({col : 2,});
+		this.setState({
+			col : this.state.col.concat(2),
+		});
 	}
 	else {
-		this.setState({col : 3,});
+		this.setState({
+			col : this.state.col.concat(3),
+		});
 	}
 
 	//row number
 
 	if (val === 0 || val === 1 || val === 2) {
-		this.setState({row : 1,});
+		this.setState({
+			row : this.state.row.concat(1),
+		});
 	}
 	else if (val === 3 || val === 4 || val === 5) {
-		this.setState({row : 2,});
+		this.setState({
+			row : this.state.row.concat(2),
+		});
 	}
 	else {
-		this.setState({row : 3,});
+		this.setState({
+			row : this.state.row.concat(3),
+		});
 	}
 	
 
@@ -140,7 +150,7 @@ class Game extends React.Component {
 
         const moves = history.map((step, move) => {      
           const desc = move ?        
-          'Go to move #' + move + " square number: " + squareNumVar[move + 8] + " " + col + ", " + row :        
+          'Go to move #' + move + " square number: " + squareNumVar[move + 8] + " " + col[move-1] + ", " + row[move-1] :        
           'Go to game start';      
           return (        
           <li key={move}>          
