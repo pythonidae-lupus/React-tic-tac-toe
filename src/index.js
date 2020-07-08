@@ -137,6 +137,9 @@ class Game extends React.Component {
       stepNumber: step,      
       xIsNext: (step % 2) === 0,    
     });  
+
+    var x = document.getElementsByClassName('steptojump');
+    x[step].style.fontWeight = 'bold';
   }
 
   render() {
@@ -148,16 +151,23 @@ class Game extends React.Component {
     const col = this.state.col;
     const row = this.state.row;
 
-        const moves = history.map((step, move) => {      
-          const desc = move ?        
-          'Go to move #' + move + " square number: " + squareNumVar[move + 8] + " " + col[move-1] + ", " + row[move-1] :        
-          'Go to game start';      
-          return (        
-          <li key={move}>          
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>        
-          </li>      
-          );    
-        });
+
+
+
+
+    const moves = history.map((step, move) => {      
+      const desc = move ?        
+      'Go to move #' + move + " square number: " + squareNumVar[move + 8] + " (" + col[move-1] + ", " + row[move-1] + ") " :        
+      'Go to game start';      
+      return (   
+
+      <li key={move}>           
+      <button class="steptojump" onClick={() => this.jumpTo(move)}>{desc}</button>        
+      </li>      
+      );    
+    });
+
+
     let status;    
     if (winner) {      
       status = 'Winner: ' + winner;    
@@ -174,7 +184,7 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
+          <ol >{moves}</ol>
         </div>
       </div>
     );
