@@ -139,6 +139,10 @@ class Game extends React.Component {
     });  
 
     var x = document.getElementsByClassName('steptojump');
+
+    for(var i=0;i<x.length;i++){
+    	x[i].style.fontWeight = 'normal';
+    }
     x[step].style.fontWeight = 'bold';
   }
 
