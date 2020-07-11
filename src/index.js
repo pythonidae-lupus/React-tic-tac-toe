@@ -8,45 +8,70 @@ function Square(props){
     {props.value}
     </button>
     );
+    ////comment
 }
 
 class Board extends React.Component {
-   //// constructor(props) {
-  //   super(props);
-  //   this.state= {squares: Array(9).fill(null), 
-  //     xIsNext: true,};
-  // }
+
+
+   	
+
 
 
   renderSquare(i) {
+  	
     return (
       <Square value={this.props.squares[i]}
     onClick={()=>this.props.onClick(i)} />
     );
+   
   }
+
+   generateRow = (index, max) => {
+    let rows = [];
+
+    for (index; index < max; index++) {
+      rows.push(this.renderSquare(index));
+    }
+    return rows;
+  };
+
+  generateBoard = (columns, rows) => {
+    let board = [];
+
+    /**
+     * Generate (col * row, here, 3 * 3 = 9) squares
+     */
+    for (let i = 0; i < columns * rows; i++) {
+      /**
+       * Generate columns.
+       *
+       * Only allow multiples of "number of columns".
+       * For example, if number of columns is 3, then,
+       * 3, 6, 9.
+       */
+      if (i % columns === 0) {
+        board.push(
+          <div className="board-row" key={i}>
+            {this.generateRow(i, i + columns)}
+          </div>
+        );
+      }
+    }
+    return board;
+  };
 
   render() {
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        <div>{this.generateBoard(3, 3)}</div>
       </div>
     );
   }
 }
+
+
+
 
 class Game extends React.Component {
 
@@ -63,7 +88,6 @@ class Game extends React.Component {
   }
 
   squareNum(val) {
-	console.log(val);
 	
 	if ( val === 0 || val === 3 || val === 6) {
 		this.setState({
@@ -166,7 +190,7 @@ class Game extends React.Component {
       return (   
 
       <li key={move}>           
-      <button class="steptojump" onClick={() => this.jumpTo(move)}>{desc}</button>        
+      <button className="steptojump" onClick={() => this.jumpTo(move)}>{desc}</button>        
       </li>      
       );    
     });
