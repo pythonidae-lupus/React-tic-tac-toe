@@ -163,9 +163,13 @@ class Game extends React.Component {
     });  
 
     var x = document.getElementsByClassName('steptojump');
-
+    var squareButtons = document.getElementsByClassName('square');
     for(var i=0;i<x.length;i++){
     	x[i].style.fontWeight = 'normal';
+
+    }
+    for (var j =0; j<9; j ++) {
+    	squareButtons[j].style.backgroundColor = 'white';
     }
     x[step].style.fontWeight = 'bold';
   }
@@ -240,6 +244,12 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+    	var x = document.getElementsByClassName('square');
+    	for (var j = 0; j < 9; j ++) {
+    		if (j===a || j ===b || j ===c) {
+    			x[j].style.backgroundColor = 'red';
+    		}
+    	}	
       return squares[a];
     }
   }
